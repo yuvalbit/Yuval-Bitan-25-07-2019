@@ -9,7 +9,7 @@ import { Weather } from '../models/weather.model';
   providedIn: 'root'
 })
 export class WeatherService {
-  apiKey = 'hqGN4FwoqypQgB05nvuv65n2pFG5QkPQ';
+  apiKey = 'T0mZFpvYNtTgBBVeNyVlAfPJOL6B4gZe';
   baseurl = 'http://dataservice.accuweather.com';
 
   constructor(private http: HttpClient) { }
