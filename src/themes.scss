@@ -1,0 +1,28 @@
+@import '~@angular/material/theming';
+@include mat-core();
+
+$weather-app-primary: mat-palette($mat-deep-orange);
+$weather-app-accent:  mat-palette($mat-brown, A200, A100, A400);
+$weather-app-warn:    mat-palette($mat-red);
+
+$weather-app-theme: mat-light-theme(
+    $weather-app-primary, 
+    $weather-app-accent, 
+    $weather-app-warn
+);
+
+@include angular-material-theme($weather-app-theme);
+
+.dark-theme {
+    $weather-dark-app-primary: mat-palette($mat-deep-orange);
+    $weather-dark-app-accent:  mat-palette($mat-brown, A200, A100, A400);
+    $weather-dark-app-warn:    mat-palette($mat-red);
+
+    $weather-dark-app-theme: mat-dark-theme(
+        $weather-dark-app-primary, 
+        $weather-dark-app-accent, 
+        $weather-dark-app-warn
+    );
+
+    @include angular-material-theme($weather-dark-app-theme);
+}

@@ -1,0 +1,81 @@
+<div fxLayout="column" fxLayoutGap="16px">
+  <div class="city-search" fxLayout fxLayoutAlign="center">
+    <form [formGroup]="searchForm" (ngSubmit)="onSearch()">
+      <mat-card fxFlex.xs="95%" fxFlex="400px">
+        <mat-card-content fxLayout="row" fxLayoutAlign="center">
+          <mat-form-field>
+            <input matInput type="text" formControlName="search" placeholder="City Serach" [matAutocomplete]="auto" (input)="onInputChange($event)">
+          </mat-form-field>
+          <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let option of optionalCities" [value]="option?.LocalizedName"
+              (onSelectionChange)="getWeather(option?.Key, option?.LocalizedName)">
+              {{option?.LocalizedName}}
+            </mat-option>
+          </mat-autocomplete>
+          <button mat-icon-button color="accent" type="submit" [disabled]="searchForm.invalid">
+            <mat-icon>search</mat-icon>
+          </button>
+        </mat-card-content>
+      </mat-card>
+    </form>
+  </div>
+
+  <div fxLayoutAlign="center center">
+    <mat-spinner *ngIf="loadingWeather"></mat-spinner>
+    <mat-card fxFlex.xs="95%" fxFlex="600px" *ngIf="!loadingWeather">
+      <mat-card-header>
+        <mat-card-title>{{ currentWeather?.City?.LocalizedName }}</mat-card-title>
+        <mat-card-subtitle>{{ currentWeather?.City?.Country?.LocalizedName }}</mat-card-subtitle>
+        <span fxFlex fxLayoutAlign="end">
+          <button mat-icon-button *ngIf="!localStorageService.isExists(currentWeather?.City?.Key)">
+            <mat-icon fontSet="far" fontIcon="fa-heart" color="warn" (click)="addToFavorite()"></mat-icon>
+          </button>
+          <button mat-icon-button *ngIf="localStorageService.isExists(currentWeather?.City?.Key)">
+            <mat-icon fontSet="fas" fontIcon="fa-heart" color="warn" (click)="removeFromFavorite()"></mat-icon>
+          </button>
+        </span>
+      </mat-card-header>
+      <mat-card-content>
+      <div fxLayout="row" fxLayoutAlign="center">
+        <div fxFlex="50%">
+          <span fxLayout="row" class="weather-item-temperature" fxLayoutAlign="center">
+              {{ currentWeather?.Weather?.Temperature?.Metric?.Value }} °C
+          </span>
+          <span fxLayout="row" class="weather-item-description" fxLayoutAlign="center">
+              {{ currentWeather?.Weather?.WeatherText }}
+          </span>
+        </div>
+        <div fxFlex="50%">
+          <span fxLayoutAlign="center">
+            <img class="weather-icon" src="https://vortex.accuweather.com/adc2010/images/slate/icons/{{ currentWeather?.Weather?.WeatherIcon }}.svg">
+          </span>
+        </div>
+      </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div fxLayout="row" fxLayoutAlign="center center">
+      <mat-spinner *ngIf="loadingFiveDays"></mat-spinner>
+  </div>
+
+  <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="16px" fxLayoutAlign="center center" *ngIf="!loadingFiveDays">
+    <section *ngFor="let day of currentFiveDays?.DailyForecasts" >
+      <mat-card fxFlex.xs="370px" fxFlex="250px">
+        <mat-card-header>
+          <mat-card-title>Sunday</mat-card-title>
+          <mat-card-subtitle><strong>{{ day?.Temperature?.Maximum?.Value }}</strong>/{{ day?.Temperature?.Minimum?.Value }} °C</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <div fxLayout="row" fxLayoutAlign="center">
+            <img class="weather-icon-day" src="https://vortex.accuweather.com/adc2010/images/slate/icons/{{ day?.Day?.Icon }}.svg">
+          </div>
+          <br/>
+          <span fxLayout="row" class="weather-item-description" fxLayoutAlign="center" fxLayoutGap="10px">
+            <strong>{{ day?.Day?.IconPhrase }} </strong> / {{ day?.Night?.IconPhrase }}
+          </span>
+        </mat-card-content>
+      </mat-card>
+    </section>
+  </div>
+</div>

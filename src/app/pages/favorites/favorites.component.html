@@ -1,0 +1,40 @@
+<section class="favorites-row" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="16px" *ngIf="favorites?.length > 0">
+  <div fxLayout="column" fxLayoutGap="16px" *ngFor="let item of favorites">
+    <div fxLayoutAlign="center center">
+      <mat-card fxFlex.xs="95%" fxFlex="250px">
+        <mat-card-header>
+          <mat-card-title>{{ item?.Weather?.City?.LocalizedName }}</mat-card-title>
+          <mat-card-subtitle>{{ item?.Weather?.City?.Country?.LocalizedName }}</mat-card-subtitle>
+          <span fxFlex fxLayoutAlign="end">
+            <button mat-icon-button>
+              <mat-icon fontSet="fas" fontIcon="fa-heart" color="warn" (click)="removeFavorite(item)"></mat-icon>
+            </button>
+          </span>
+        </mat-card-header>
+        <mat-card-content>
+        <div fxLayout="column" fxLayoutAlign="center" fxLayoutGap="16px">
+          <span fxLayoutAlign="center">
+            <img class="weather-icon" src="https://vortex.accuweather.com/adc2010/images/slate/icons/{{ item?.Weather?.Weather?.WeatherIcon }}.svg">
+          </span>
+          <span class="weather-item-temperature" fxLayoutAlign="center">
+            {{ item?.Weather?.Weather?.Temperature?.Metric?.Value }} °C
+          </span>
+          <span class="weather-item-description" fxLayoutAlign="center">
+            {{ item?.Weather?.Weather?.WeatherText }}
+          </span>
+        </div>
+        </mat-card-content>
+        <mat-card-actions fxLayout="row" fxLayoutAlign="center">
+          <button mat-icon-button >
+            <mat-icon fontSet="fas" fontIcon="fa-angle-down" color="accent"></mat-icon>
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+</section>
+
+<section class="favorites-row" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="16px" *ngIf="favorites?.length === 0">
+    <h1>No Favorites</h1>
+</section>
+

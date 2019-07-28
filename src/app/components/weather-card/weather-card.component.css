@@ -1,0 +1,48 @@
+.weather-item-temperature {
+    font-weight: bold;
+    font-size: 4em;
+}
+
+.weather-item-description {
+    font-size: 1em;
+}
+
+.weather-item-primary-properties {
+    margin-top: 16px;
+}
+.weather-item-timestamp {
+    margin-top: 16px;
+    font-size: 10px;
+    font-weight: 600;
+}
+
+.weather-item-primary-properties-inner{
+    padding-bottom: 16px;
+}
+
+.span-xs {
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.weather-icon {
+    width: 120px;
+    height: 120px;
+}
+
+.weather-icon-day {
+    widows: 60px;
+    height: 60px;
+}
+
+.mat-icon {
+    font-size: 20px;
+}
+  
+mat-form-field {
+    width: 100%;
+}
+
+.city-search {
+    padding: 20px;
+}
